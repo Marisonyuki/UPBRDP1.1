@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,26 @@ namespace UPBRDP1
             Window1 Window1 = new Window1();
             Window1.Show();
             Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Worker.InsertQuery(Texter1.Text, Texter2.Text, Texter3.Text);
+            BDG.ItemsSource = Worker.GetData();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            object id = (BDG.SelectedItem as DataRowView).Row[0];
+            Worker.UpdateQuery(Texter1.Text, Texter2.Text, Texter3.Text, Convert.ToInt32(id));
+            BDG.ItemsSource = Worker.GetData();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            object id = (BDG.SelectedItem as DataRowView).Row[0];
+            Worker.DeleteQuery(Convert.ToInt32(id));
+            BDG.ItemsSource = Worker.GetData();
         }
     }
 }

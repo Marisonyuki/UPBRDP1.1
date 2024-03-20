@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,26 @@ namespace UPBRDP1
             Window2 Window2 = new Window2();
             Window2.Show();
             Close();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Project.InsertQuery(Texter1.Text, Convert.ToDateTime(Texter2.Text));
+            BDG2.ItemsSource = Project.GetData();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            object id = (BDG2.SelectedItem as DataRowView).Row[0];
+            Project.UpdateQuery(Texter1.Text, Convert.ToDateTime(Texter2.Text), Convert.ToInt32(id));
+            BDG2.ItemsSource = Project.GetData();
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            object id = (BDG2.SelectedItem as DataRowView).Row[0];
+            Project.DeleteQuery(Convert.ToInt32(id));
+            BDG2.ItemsSource = Project.GetData();
         }
     }
 }
